@@ -101,6 +101,8 @@ dependencies {
 
     // define any required OkHttp artifacts without version
     implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
+    //observestate
+    implementation "androidx.compose.runtime:runtime-livedata:1.0.0-beta01"
 
 
 }
