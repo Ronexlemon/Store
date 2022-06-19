@@ -1,10 +1,13 @@
 package com.example.store.model
 
+import android.os.Parcel
+import android.os.Parcelable
+
 data class Products(
-    val category: String,
-    val description: String,
-    val id: Int,
-    val image: String,
-    val price: String,
-    val title: String
+    val category: String?=null,
+    val description: String?=null,
+    val id: Int?=null,
+    val image: String?=null,
+    val price: String?=null,
+    val title: String?=null
 )

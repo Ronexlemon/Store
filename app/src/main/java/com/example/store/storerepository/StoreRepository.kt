@@ -1,4 +1,9 @@
 package com.example.store.storerepository
 
-class StoreRepository {
+import com.example.store.api.StoreService
+import javax.inject.Inject
+
+class StoreRepository
+@Inject constructor(private val dao:StoreService){
+    suspend fun getAllProducts() = dao.getAllProducts()
 }
