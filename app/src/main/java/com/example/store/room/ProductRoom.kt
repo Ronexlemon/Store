@@ -1,4 +1,4 @@
-package com.example.store.model
+package com.example.store.room
 
 data class ProductRoom(val title:String?=null,
 val price:Double?=null,
