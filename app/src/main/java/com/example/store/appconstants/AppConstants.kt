@@ -5,4 +5,5 @@ object AppConstants {
     const val DataBaseName ="ProductStore"
     const val TableName="Products"
     const val EndPoint ="/products"
+    const val EndPointJewelery ="/products/category/jewelery"
 }

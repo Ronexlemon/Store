@@ -9,10 +9,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Observer
+import com.example.store.Screen.MainScreen
+import com.example.store.model.Products
 import com.example.store.storviemodel.StoreViewModel
 import com.example.store.ui.theme.StoreTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,20 +23,20 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private  val  viewModel: StoreViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            StoreTheme {
+            StoreTheme(darkTheme = true) {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    viewModel.response.observe(this, Observer{
-                        Log.i("Tag",it.toString())
+                    val scaffoldState = rememberScaffoldState()
 
-                    })
-                    Greeting("Android")
+                    //Greeting("Android")
+                    MainScreen(scaffoldState =scaffoldState, viemodel = viewModel )
                 }
             }
         }
