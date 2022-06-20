@@ -44,7 +44,7 @@ fun MainScreen(modifier:Modifier= Modifier,viemodel: StoreViewModel,scaffoldStat
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AllProductScreen(modifier:Modifier = Modifier,viemodel: StoreViewModel){
-    val state by viemodel.state.collectAsState()
+    val state by viemodel.jewerystate.collectAsState()
     Column(modifier.fillMaxSize()){
         Landingpage()
 

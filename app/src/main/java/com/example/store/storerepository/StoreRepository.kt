@@ -6,4 +6,5 @@ import javax.inject.Inject
 class StoreRepository
 @Inject constructor(private val dao:StoreService){
     suspend fun getAllProducts() = dao.getAllProducts()
+    suspend fun  getAllJewery() = dao.getAllProductsJewelery()
 }

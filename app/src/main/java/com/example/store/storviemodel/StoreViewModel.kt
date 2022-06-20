@@ -22,13 +22,25 @@ class StoreViewModel
     val _state = MutableStateFlow(emptyList<Products>())
     val state:StateFlow<List<Products>>
     get() = _state
+    val _jewerystate = MutableStateFlow(emptyList<Products>())
+    val jewerystate:StateFlow<List<Products>>
+        get() = _jewerystate
+
     //if you're using the xml pprocess
 //        var _response = MutableLiveData<List<Products>>()
 //    val response:LiveData<List<Products>>
 //    get() = _response
     init {
       // getDataResponse()
+        getJeweryResponse()
   getDataRes()
+    }
+
+    private fun getJeweryResponse() {
+        viewModelScope.launch {
+            val jewery = repo.getAllJewery()
+            _jewerystate.value = jewery.body()!!
+        }
     }
 
     private fun getDataRes() {
