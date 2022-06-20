@@ -28,6 +28,12 @@ class StoreViewModel
     val _electronicstate = MutableStateFlow(emptyList<Products>())
     val electronicstate:StateFlow<List<Products>>
         get() = _electronicstate
+    val _menstate = MutableStateFlow(emptyList<Products>())
+    val menstate:StateFlow<List<Products>>
+        get() = _menstate
+    val _womenstate = MutableStateFlow(emptyList<Products>())
+    val womenstate:StateFlow<List<Products>>
+        get() = _womenstate
 
     //if you're using the xml pprocess
 //        var _response = MutableLiveData<List<Products>>()
@@ -38,6 +44,22 @@ class StoreViewModel
         getJeweryResponse()
   getDataRes()
         getElectronicResponse()
+        getMenResponse()
+        getWomenResponse()
+    }
+
+    private fun getWomenResponse() {
+        viewModelScope.launch {
+            val women = repo.getAllWomens()
+            _womenstate.value = women.body()!!
+        }
+    }
+
+    private fun getMenResponse() {
+        viewModelScope.launch {
+            val men = repo.getAllMens()
+            _menstate.value = men.body()!!
+        }
     }
 
     private fun getElectronicResponse() {

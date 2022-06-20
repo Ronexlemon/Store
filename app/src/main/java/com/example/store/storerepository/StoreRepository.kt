@@ -8,4 +8,6 @@ class StoreRepository
     suspend fun getAllProducts() = dao.getAllProducts()
     suspend fun  getAllJewery() = dao.getAllProductsJewelery()
     suspend fun  getAllElectronics() = dao.getAllProductsElectronic()
+    suspend fun  getAllMens()= dao.getAllProductsMen()
+    suspend fun  getAllWomens() = dao.getAllProductsWomen()
 }
