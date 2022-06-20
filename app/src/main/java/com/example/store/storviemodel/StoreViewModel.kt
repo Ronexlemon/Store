@@ -19,21 +19,12 @@ import javax.inject.Inject
 @HiltViewModel
 class StoreViewModel
     @Inject constructor(private val repo:StoreRepository): ViewModel() {
+
     val _state = MutableStateFlow(emptyList<Products>())
     val state:StateFlow<List<Products>>
     get() = _state
-    val _jewerystate = MutableStateFlow(emptyList<Products>())
-    val jewerystate:StateFlow<List<Products>>
-        get() = _jewerystate
-    val _electronicstate = MutableStateFlow(emptyList<Products>())
-    val electronicstate:StateFlow<List<Products>>
-        get() = _electronicstate
-    val _menstate = MutableStateFlow(emptyList<Products>())
-    val menstate:StateFlow<List<Products>>
-        get() = _menstate
-    val _womenstate = MutableStateFlow(emptyList<Products>())
-    val womenstate:StateFlow<List<Products>>
-        get() = _womenstate
+
+
 
     //if you're using the xml pprocess
 //        var _response = MutableLiveData<List<Products>>()
@@ -41,42 +32,44 @@ class StoreViewModel
 //    get() = _response
     init {
       // getDataResponse()
-        getJeweryResponse()
+
   getDataRes()
-        getElectronicResponse()
-        getMenResponse()
-        getWomenResponse()
+
+
     }
 
-    private fun getWomenResponse() {
-        viewModelScope.launch {
-            val women = repo.getAllWomens()
-            _womenstate.value = women.body()!!
+    public fun getWomenResponse() {
+
+            viewModelScope.launch {
+                val women = repo.getAllWomens()
+                _state.value = women.body()!!
+
         }
+
     }
 
-    private fun getMenResponse() {
+    public fun getMenResponse() {
         viewModelScope.launch {
             val men = repo.getAllMens()
-            _menstate.value = men.body()!!
+            _state.value = men.body()!!
         }
     }
 
-    private fun getElectronicResponse() {
+    public fun getElectronicResponse() {
         viewModelScope.launch{
             val electronic =repo.getAllElectronics()
-            _electronicstate.value =electronic.body()!!
+            _state.value =electronic.body()!!
         }
     }
 
-    private fun getJeweryResponse() {
+    public fun getJeweryResponse() {
         viewModelScope.launch {
             val jewery = repo.getAllJewery()
-            _jewerystate.value = jewery.body()!!
+            _state.value = jewery.body()!!
         }
     }
 
-    private fun getDataRes() {
+    public fun getDataRes() {
         viewModelScope.launch {
             val prod= repo.getAllProducts()
             _state.value = prod.body()!!
