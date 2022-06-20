@@ -30,12 +30,12 @@ import com.example.store.model.Products
 import com.example.store.storviemodel.StoreViewModel
 
 @Composable
-fun MainScreen(modifier:Modifier= Modifier,viemodel: StoreViewModel,scaffoldState: ScaffoldState){
+fun MainScreen(modifier:Modifier= Modifier,viemodel: StoreViewModel,scaffoldState: ScaffoldState,onItemclick:(Products)->Unit){
     Scaffold(
         scaffoldState = scaffoldState
     ) {
 
-        AllProductScreen(viemodel = viemodel)
+        AllProductScreen(viemodel = viemodel, onItemclick = onItemclick)
 
     }
 
@@ -43,7 +43,7 @@ fun MainScreen(modifier:Modifier= Modifier,viemodel: StoreViewModel,scaffoldStat
 }
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AllProductScreen(modifier:Modifier = Modifier,viemodel: StoreViewModel){
+fun AllProductScreen(modifier:Modifier = Modifier,viemodel: StoreViewModel,onItemclick:(Products)->Unit){
 
     val category by viemodel.state.collectAsState()
 
@@ -63,7 +63,7 @@ fun AllProductScreen(modifier:Modifier = Modifier,viemodel: StoreViewModel){
         ){
 
  items(category){item->
-     ProductsItem(data = item)
+     ProductsItem(data = item, onItemclick = onItemclick)
 
  }
         }
@@ -73,14 +73,14 @@ fun AllProductScreen(modifier:Modifier = Modifier,viemodel: StoreViewModel){
 }
 
 @Composable
-fun ProductsItem(modifier:Modifier=Modifier,data:Products) {
+fun ProductsItem(modifier:Modifier=Modifier,data:Products,onItemclick:(Products)->Unit) {
     Card(
         modifier
             .fillMaxWidth()
             .height(370.dp)
             .background(color = MaterialTheme.colors.background)
             .padding(8.dp), shape = RoundedCornerShape(20.dp)){
-        Column(modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceEvenly) {
+        Column(modifier.fillMaxSize().clickable {onItemclick(data)  }, verticalArrangement = Arrangement.SpaceEvenly) {
             Image(painter = rememberAsyncImagePainter(data.image), contentDescription =null,
                 modifier
                     .size(100.dp, 100.dp)
