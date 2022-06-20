@@ -87,7 +87,7 @@ fun ProductsItem(modifier:Modifier=Modifier,data:Products,onItemclick:(Products)
                     .align(Alignment.CenterHorizontally) )
             Text(text="${data.title}",modifier.padding(8.dp))
             Text(text="${data.category}",modifier.padding(8.dp))
-            Text(text="$${data.price}",modifier.padding(8.dp), style = TextStyle(fontWeight = FontWeight.ExtraBold, fontSize = 20.sp))
+            Text(text="Ksh${data.price}",modifier.padding(8.dp), style = TextStyle(fontWeight = FontWeight.ExtraBold, fontSize = 20.sp))
 
         }
 
