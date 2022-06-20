@@ -1,6 +1,7 @@
 package com.example.store.api
 
 import com.example.store.appconstants.AppConstants.EndPoint
+import com.example.store.appconstants.AppConstants.EndPointElectronic
 import com.example.store.appconstants.AppConstants.EndPointJewelery
 import com.example.store.model.Products
 import retrofit2.Response
@@ -11,5 +12,7 @@ interface StoreService {
     suspend fun  getAllProducts(): Response<List<Products>>
     @GET(EndPointJewelery)
     suspend fun  getAllProductsJewelery():Response<List<Products>>
+    @GET(EndPointElectronic)
+    suspend fun  getAllProductsElectronic():Response<List<Products>>
 
 }
