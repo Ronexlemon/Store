@@ -44,9 +44,11 @@ fun MainScreen(modifier:Modifier= Modifier,viemodel: StoreViewModel,scaffoldStat
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AllProductScreen(modifier:Modifier = Modifier,viemodel: StoreViewModel){
-    val state by viemodel.menstate.collectAsState()
+
+    val category by viemodel.state.collectAsState()
+
     Column(modifier.fillMaxSize()){
-        Landingpage()
+        Landingpage(viemodel = viemodel)
 
 //        LazyColumn{
 //            items(items=state, itemContent = {item->
@@ -59,7 +61,8 @@ fun AllProductScreen(modifier:Modifier = Modifier,viemodel: StoreViewModel){
             horizontalArrangement = Arrangement.spacedBy(16.dp)
 
         ){
- items(state){item->
+
+ items(category){item->
      ProductsItem(data = item)
 
  }
@@ -93,13 +96,15 @@ fun ProductsItem(modifier:Modifier=Modifier,data:Products) {
 }
 
 @Composable
-fun Landingpage(modifier:Modifier = Modifier){
+fun Landingpage(modifier:Modifier = Modifier,viemodel: StoreViewModel){
+    var name by remember{ mutableStateOf("")}
     Column {
+
 
 LandingPageCard()
         LazyRow {
             item {
-                OutlinedButton(onClick = { /*TODO*/ }, shape = RoundedCornerShape(15.dp),modifier= Modifier
+                OutlinedButton(onClick = {viemodel.getDataRes()}, shape = RoundedCornerShape(15.dp),modifier= Modifier
                     .size(height = 60.dp, width = 125.dp)
                     .padding(8.dp)) {
                     Text(
@@ -114,7 +119,7 @@ LandingPageCard()
                 }
             }
             item {
-                OutlinedButton(onClick = { /*TODO*/ }, shape = RoundedCornerShape(15.dp),modifier= Modifier
+                OutlinedButton(onClick = { viemodel.getJeweryResponse() }, shape = RoundedCornerShape(15.dp),modifier= Modifier
                     .size(height = 60.dp, width = 125.dp)
                     .padding(8.dp)){
                     Text(
@@ -129,7 +134,7 @@ LandingPageCard()
                 }
             }
             item {
-                OutlinedButton(onClick = { /*TODO*/ }, shape = RoundedCornerShape(15.dp),modifier= Modifier
+                OutlinedButton(onClick = { viemodel.getElectronicResponse() }, shape = RoundedCornerShape(15.dp),modifier= Modifier
                     .size(height = 60.dp, width = 150.dp)
                     .padding(8.dp)) {
                     Text(
@@ -144,7 +149,7 @@ LandingPageCard()
                 }
             }
             item {
-                OutlinedButton(onClick = { /*TODO*/ }, shape = RoundedCornerShape(15.dp),modifier= Modifier
+                OutlinedButton(onClick = { viemodel.getWomenResponse() }, shape = RoundedCornerShape(15.dp),modifier= Modifier
                     .size(height = 60.dp, width = 200.dp)
                     .padding(8.dp)){
                     Text(
@@ -159,7 +164,7 @@ LandingPageCard()
                 }
             }
             item {
-                OutlinedButton(onClick = { /*TODO*/ }, shape = RoundedCornerShape(15.dp),modifier= Modifier
+                OutlinedButton(onClick = { viemodel.getMenResponse() }, shape = RoundedCornerShape(15.dp),modifier= Modifier
                     .size(height = 60.dp, width = 100.dp)
                     .padding(8.dp)) {
                     Text(
