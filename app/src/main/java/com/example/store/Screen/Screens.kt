@@ -1,6 +1,8 @@
 package com.example.store.Screen
 
+import android.annotation.SuppressLint
 import android.view.RoundedCorner
+import android.widget.ProgressBar
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
@@ -28,6 +30,9 @@ import com.example.store.Greeting
 import com.example.store.R
 import com.example.store.model.Products
 import com.example.store.storviemodel.StoreViewModel
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun MainScreen(modifier:Modifier= Modifier,viemodel: StoreViewModel,scaffoldState: ScaffoldState,onItemclick:(Products)->Unit){
@@ -41,11 +46,13 @@ fun MainScreen(modifier:Modifier= Modifier,viemodel: StoreViewModel,scaffoldStat
 
 
 }
+@SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AllProductScreen(modifier:Modifier = Modifier,viemodel: StoreViewModel,onItemclick:(Products)->Unit){
 
     val category by viemodel.state.collectAsState()
+    val scope = rememberCoroutineScope()
 
     Column(modifier.fillMaxSize()){
         Landingpage(viemodel = viemodel)
@@ -56,16 +63,27 @@ fun AllProductScreen(modifier:Modifier = Modifier,viemodel: StoreViewModel,onIte
 //
 //            })
 //        }
-        LazyVerticalGrid( cells= GridCells.Fixed(2),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        when(val resource = viemodel.progress) {
+            true -> {
+                scope.launch {
+                    delay(1000L)
+                    viemodel.progress=false
+                }
+                CustomLinearProgressBar()}
+            false ->
 
-        ){
+                LazyVerticalGrid(
+                    cells = GridCells.Fixed(2),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
 
- items(category){item->
-     ProductsItem(data = item, onItemclick = onItemclick)
+                ) {
 
- }
+                    items(category) { item ->
+                        ProductsItem(data = item, onItemclick = onItemclick)
+
+                    }
+                }
         }
 
 
@@ -80,7 +98,10 @@ fun ProductsItem(modifier:Modifier=Modifier,data:Products,onItemclick:(Products)
             .height(370.dp)
             .background(color = MaterialTheme.colors.background)
             .padding(8.dp), shape = RoundedCornerShape(20.dp)){
-        Column(modifier.fillMaxSize().clickable {onItemclick(data)  }, verticalArrangement = Arrangement.SpaceEvenly) {
+        Column(
+            modifier
+                .fillMaxSize()
+                .clickable { onItemclick(data) }, verticalArrangement = Arrangement.SpaceEvenly) {
             Image(painter = rememberAsyncImagePainter(data.image), contentDescription =null,
                 modifier
                     .size(100.dp, 100.dp)
@@ -97,7 +118,7 @@ fun ProductsItem(modifier:Modifier=Modifier,data:Products,onItemclick:(Products)
 
 @Composable
 fun Landingpage(modifier:Modifier = Modifier,viemodel: StoreViewModel){
-    var name by remember{ mutableStateOf("")}
+    var name by remember{ mutableStateOf(false)}
     Column {
 
 
@@ -206,7 +227,11 @@ fun SearchBar(modifier:Modifier=Modifier) {
     var search by remember{ mutableStateOf("")}
     Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         Image(painter = painterResource(id = R.drawable.ic_launcher_background), contentDescription = null,
-        modifier.size(50.dp).clip(CircleShape).align(Alignment.CenterVertically).padding(start=8.dp), contentScale = ContentScale.Crop)
+            modifier
+                .size(50.dp)
+                .clip(CircleShape)
+                .align(Alignment.CenterVertically)
+                .padding(start = 8.dp), contentScale = ContentScale.Crop)
         OutlinedTextField(value =search , onValueChange ={
             search=it
         }, shape = RoundedCornerShape(10.dp),modifier= Modifier
@@ -216,5 +241,17 @@ Button(onClick = { /*TODO*/ },shape= RoundedCornerShape(15.dp),modifier=Modifier
     Icon(Icons.Default.Search,contentDescription = null)
 
 }
+    }
+}
+@Composable
+private fun CustomLinearProgressBar(){
+    Column(modifier = Modifier.fillMaxWidth()) {
+        LinearProgressIndicator(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(15.dp),
+            backgroundColor = Color.LightGray,
+            color = Color.Red //progress color
+        )
     }
 }

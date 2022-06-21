@@ -23,6 +23,8 @@ class StoreViewModel
     val _state = MutableStateFlow(emptyList<Products>())
     val state:StateFlow<List<Products>>
     get() = _state
+    var progress by  mutableStateOf(false)
+
 
 
 
@@ -43,6 +45,7 @@ class StoreViewModel
             viewModelScope.launch {
                 val women = repo.getAllWomens()
                 _state.value = women.body()!!
+               progress=true
 
         }
 
@@ -52,6 +55,8 @@ class StoreViewModel
         viewModelScope.launch {
             val men = repo.getAllMens()
             _state.value = men.body()!!
+            progress=true
+
         }
     }
 
@@ -59,6 +64,8 @@ class StoreViewModel
         viewModelScope.launch{
             val electronic =repo.getAllElectronics()
             _state.value =electronic.body()!!
+            progress=true
+
         }
     }
 
@@ -66,6 +73,8 @@ class StoreViewModel
         viewModelScope.launch {
             val jewery = repo.getAllJewery()
             _state.value = jewery.body()!!
+            progress=true
+
         }
     }
 
@@ -73,6 +82,8 @@ class StoreViewModel
         viewModelScope.launch {
             val prod= repo.getAllProducts()
             _state.value = prod.body()!!
+            progress=true
+
         }
     }
 
