@@ -29,6 +29,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.store.Greeting
 import com.example.store.R
 import com.example.store.model.Products
+import com.example.store.model.autoScrollingList
 import com.example.store.storviemodel.StoreViewModel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
@@ -119,6 +120,7 @@ fun ProductsItem(modifier:Modifier=Modifier,data:Products,onItemclick:(Products)
 @Composable
 fun Landingpage(modifier:Modifier = Modifier,viemodel: StoreViewModel){
     var name by remember{ mutableStateOf(false)}
+    val category by viemodel.state.collectAsState()
     Column {
 
 
@@ -205,18 +207,19 @@ LandingPageCard()
 }
 @Composable
 fun LandingPageCard(modifier:Modifier= Modifier){
-    Column{
+    Column(modifier.fillMaxWidth().height(250.dp)){
         SearchBar()
-        Card(
-            modifier
-                .fillMaxWidth()
-                .height(200.dp)
-                .padding(16.dp)){
-            Box(modifier.fillMaxSize()){
-                Image(modifier=Modifier.fillMaxSize(), contentScale = ContentScale.Crop,painter = painterResource(id = R.drawable.ic_launcher_background), contentDescription =null )
-
-            }
-        }
+       AutoScrollingList(list = autoScrollingList )
+//        Card(
+//            modifier
+//                .fillMaxWidth()
+//                .height(200.dp)
+//                .padding(16.dp)){
+//            Box(modifier.fillMaxSize()){
+////                Image(modifier=Modifier.fillMaxSize(), contentScale = ContentScale.Crop,painter = painterResource(id = R.drawable.ic_launcher_background), contentDescription =null )
+//               // AutoScrollingList(list =list )
+//            }
+//        }
     }
 
 

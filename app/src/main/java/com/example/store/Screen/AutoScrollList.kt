@@ -20,8 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberAsyncImagePainter
-import com.example.store.model.Products
+import com.example.store.model.AutoScrollingModel
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -30,7 +29,7 @@ private const val DELAY_BETWEEN_SCROLL_MS = 8L
 private const val SCROLL_DX = 1f
 
 @Composable
-fun AutoScrollingList(list: List<Products>) {
+fun AutoScrollingList(list: List<AutoScrollingModel>) {
     var itemListState by remember { mutableStateOf(list) }
     val lazyListState = rememberLazyListState()
 
@@ -72,7 +71,7 @@ private tailrec suspend fun autoScoll(lazyListState: LazyListState) {
 
 @Composable
 fun AutoScrollingName(
-    autoScrollingModel: Products
+    autoScrollingModel: AutoScrollingModel
 ) {
     Card(
         modifier = Modifier
@@ -85,16 +84,19 @@ fun AutoScrollingName(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Image(painter =rememberAsyncImagePainter(autoScrollingModel.image), contentDescription =null,
+            Image(
+                painter = painterResource(id = autoScrollingModel.iconResource),
+                contentDescription = autoScrollingModel.contentDescription,
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
                     .size(135.dp)
                     .padding(5.dp)
-                    .clip(RoundedCornerShape(10.dp)))
+                    .clip(RoundedCornerShape(10.dp))
+            )
             Spacer(modifier = Modifier.height(2.dp))
 
             Text(
-                text ="${autoScrollingModel.title}",
+                text = autoScrollingModel.contentDescription,
                 textAlign = TextAlign.Center,
 
                 fontWeight = FontWeight.Bold,
