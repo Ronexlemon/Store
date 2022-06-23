@@ -23,7 +23,6 @@ interface StoreService {
     @GET(EndPointWomenCloths)
     suspend fun  getAllProductsWomen():Response<List<Products>>
     //get all product from cart
-    @GET(EndPointcart)
-    suspend fun  getAllCartProducts(@Query("id") id:Int):Response<List<Cart>>
+
 
 }
