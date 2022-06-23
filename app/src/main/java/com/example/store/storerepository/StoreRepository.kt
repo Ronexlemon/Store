@@ -10,5 +10,5 @@ class StoreRepository
     suspend fun  getAllElectronics() = dao.getAllProductsElectronic()
     suspend fun  getAllMens()= dao.getAllProductsMen()
     suspend fun  getAllWomens() = dao.getAllProductsWomen()
-    suspend fun  getAllCart(id:Int) = dao.getAllCartProducts(id)
+
 }
