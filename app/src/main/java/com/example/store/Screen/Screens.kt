@@ -42,9 +42,7 @@ import kotlinx.coroutines.launch
 fun MainScreen(modifier:Modifier= Modifier,viemodel: StoreViewModel,scaffoldState: ScaffoldState,navHostController: NavHostController,scope: CoroutineScope,onItemclick:(Products)->Unit){
     Scaffold(
         scaffoldState = scaffoldState
-    , floatingActionButton = {
-        FloatingButton(navHostController = navHostController, scope = scope)
-        }
+    ,
     ) {
 
         AllProductScreen(viemodel = viemodel, onItemclick = onItemclick)
@@ -54,14 +52,6 @@ fun MainScreen(modifier:Modifier= Modifier,viemodel: StoreViewModel,scaffoldStat
 
 }
 
-@Composable
-fun FloatingButton(modifier:Modifier=Modifier,navHostController: NavHostController,scope: CoroutineScope) {
-    FloatingActionButton(onClick = { scope.launch{
-        navHostController.navigate(NavigationScreens.Cart.route)
-    } }) {
-
-    }
-}
 
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalFoundationApi::class)

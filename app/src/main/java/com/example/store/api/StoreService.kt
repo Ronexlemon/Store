@@ -5,8 +5,7 @@ import com.example.store.appconstants.AppConstants.EndPointElectronic
 import com.example.store.appconstants.AppConstants.EndPointJewelery
 import com.example.store.appconstants.AppConstants.EndPointMenCloths
 import com.example.store.appconstants.AppConstants.EndPointWomenCloths
-import com.example.store.appconstants.AppConstants.EndPointcart
-import com.example.store.model.Cart
+
 import com.example.store.model.Products
 import retrofit2.Response
 import retrofit2.http.GET
@@ -24,7 +23,6 @@ interface StoreService {
     @GET(EndPointWomenCloths)
     suspend fun  getAllProductsWomen():Response<List<Products>>
     //get all product from cart
-    @GET(EndPointcart)
-    suspend fun  getAllCartProducts(@Query("id") id:Int):Response<List<Cart>>
+
 
 }

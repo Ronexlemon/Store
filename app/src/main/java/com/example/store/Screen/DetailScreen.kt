@@ -28,21 +28,20 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
-fun MainDetailScreen(modifier:Modifier= Modifier,data:Products,navHostController: NavHostController, scope: CoroutineScope,scaffoldState: ScaffoldState){
+fun MainDetailScreen(modifier:Modifier= Modifier,data:Products,scaffoldState: ScaffoldState){
     Scaffold(
         scaffoldState = scaffoldState,
-        floatingActionButton = {
-                             FloatingButton(navHostController = navHostController, scope =scope )
-        },
+
+
         content = {
-            DetailContent(data=data, navHostController = navHostController, scope = scope)
+            DetailContent(data=data)
         }
     )
 
 }
 
 @Composable
-fun DetailContent(modifier:Modifier=Modifier, data:Products, navHostController: NavHostController, scope: CoroutineScope) {
+fun DetailContent(modifier:Modifier=Modifier, data:Products) {
     Column(
         modifier
             .fillMaxSize()
@@ -66,14 +65,10 @@ fun DetailContent(modifier:Modifier=Modifier, data:Products, navHostController: 
 
 
 Row(modifier.fillMaxWidth(),verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.End,){
-    OutlinedButton(onClick = { scope.launch{
-        navHostController.navigate(NavigationScreens.Cart.route){
-            popUpTo(NavigationScreens.Cart.route){
-                inclusive = true
-            }
+    OutlinedButton(onClick = {
 
-        }
-    } }) {
+
+     }) {
         Icon(Icons.Default.ShoppingCart,contentDescription = null)
 
     }

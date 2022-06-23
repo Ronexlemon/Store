@@ -35,7 +35,7 @@ class DetailActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MainDetailScreen(data = data, navHostController = navHostController, scope = scope, scaffoldState = scaffoldState)
+                    MainDetailScreen(data = data, scaffoldState = scaffoldState)
                 }
             }
         }
