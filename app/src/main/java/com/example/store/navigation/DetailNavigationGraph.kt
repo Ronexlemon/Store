@@ -18,10 +18,12 @@ fun DetailNavigationGraph(navHostController: NavHostController,data:Products,sca
         composable(route = NavigationScreens.Cart.route){
             MainDetailScreen(data =data , scaffoldState =scaffoldState, scope = scope, navHostController = navHostController )
         }
-        composable(route = "${NavigationScreens.CheckOut.route}/{tittle}",
-            arguments = listOf(navArgument("tittle"){type = NavType.StringType }
+        composable(route = "${NavigationScreens.CheckOut.route}/{price}",
+
+            arguments = listOf(
+                navArgument("price"){type = NavType.StringType }
        )){
-CheckOutScreen(it.arguments?.getString("tittle"))
+CheckOutScreen(it.arguments?.getString("price"))
         }
     }
 }

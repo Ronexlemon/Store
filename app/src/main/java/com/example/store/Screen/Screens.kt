@@ -16,6 +16,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -29,6 +30,7 @@ import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.store.Greeting
 import com.example.store.R
+import com.example.store.appconstants.AppConstants.colors
 import com.example.store.model.Products
 import com.example.store.model.autoScrollingList
 import com.example.store.navigation.NavigationScreens
@@ -61,7 +63,7 @@ fun AllProductScreen(modifier:Modifier = Modifier,viemodel: StoreViewModel,onIte
     val category by viemodel.state.collectAsState()
     val scope = rememberCoroutineScope()
 
-    Column(modifier.fillMaxSize()){
+    Column(modifier.fillMaxSize().background(brush= Brush.horizontalGradient(colors=colors))){
         Landingpage(viemodel = viemodel)
 
 //        LazyColumn{
@@ -115,7 +117,7 @@ fun ProductsItem(modifier:Modifier=Modifier,data:Products,onItemclick:(Products)
                     .align(Alignment.CenterHorizontally) )
             Text(text="${data.title}",modifier.padding(8.dp))
             Text(text="${data.category}",modifier.padding(8.dp))
-            Text(text="Ksh${data.price}",modifier.padding(8.dp), style = TextStyle(fontWeight = FontWeight.ExtraBold, fontSize = 20.sp))
+            Text(text="$ ${data.price}",modifier.padding(8.dp), style = TextStyle(fontWeight = FontWeight.ExtraBold, fontSize = 20.sp))
 
         }
 
