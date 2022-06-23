@@ -28,20 +28,20 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
-fun MainDetailScreen(modifier:Modifier= Modifier,data:Products,scaffoldState: ScaffoldState){
+fun MainDetailScreen(modifier:Modifier= Modifier,data:Products,scaffoldState: ScaffoldState,navHostController: NavHostController,scope: CoroutineScope){
     Scaffold(
         scaffoldState = scaffoldState,
 
 
         content = {
-            DetailContent(data=data)
+            DetailContent(data=data, navHostController = navHostController, scope = scope)
         }
     )
 
 }
 
 @Composable
-fun DetailContent(modifier:Modifier=Modifier, data:Products) {
+fun DetailContent(modifier:Modifier=Modifier, data:Products,navHostController: NavHostController,scope: CoroutineScope) {
     Column(
         modifier
             .fillMaxSize()
@@ -65,7 +65,9 @@ fun DetailContent(modifier:Modifier=Modifier, data:Products) {
 
 
 Row(modifier.fillMaxWidth(),verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.End,){
-    OutlinedButton(onClick = {
+    OutlinedButton(onClick = {scope.launch {
+        navHostController.navigate(NavigationScreens.CheckOut.route.plus("/${data.title}"))
+    }
 
 
      }) {
@@ -73,5 +75,13 @@ Row(modifier.fillMaxWidth(),verticalAlignment = Alignment.Bottom, horizontalArra
 
     }
 }
+    }
+}
+
+@Composable
+fun CheckOutScreen(title:String?=null){
+    Column(modifier=Modifier.fillMaxSize()){
+       Text(text="${title}")
+
     }
 }

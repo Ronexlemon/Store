@@ -36,7 +36,7 @@ class DetailActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    DetailNavigationGraph(navHostController = navHostController, data = data, scaffoldState = scaffoldState)
+                    DetailNavigationGraph(navHostController = navHostController, data = data, scaffoldState = scaffoldState,scope=scope)
                     //MainDetailScreen(data = data, scaffoldState = scaffoldState)
                 }
             }
