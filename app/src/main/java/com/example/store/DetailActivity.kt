@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.store.Screen.MainDetailScreen
 import com.example.store.model.Products
+import com.example.store.navigation.DetailNavigationGraph
 import com.example.store.ui.theme.StoreTheme
 
 class DetailActivity : ComponentActivity() {
@@ -35,7 +36,8 @@ class DetailActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MainDetailScreen(data = data, scaffoldState = scaffoldState)
+                    DetailNavigationGraph(navHostController = navHostController, data = data, scaffoldState = scaffoldState,scope=scope)
+                    //MainDetailScreen(data = data, scaffoldState = scaffoldState)
                 }
             }
         }
