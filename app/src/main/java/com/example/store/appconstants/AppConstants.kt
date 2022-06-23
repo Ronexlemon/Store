@@ -9,5 +9,5 @@ object AppConstants {
     const val EndPointElectronic="/products/category/electronics"
     const val EndPointMenCloths="/products/category/men's clothing"
     const val EndPointWomenCloths="/products/category/women's clothing"
-    const val EndPointcart = "/products/carts"
+    const val EndPointcart = "/carts"
 }

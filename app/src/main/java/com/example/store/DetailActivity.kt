@@ -9,9 +9,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import com.example.store.Screen.MainDetailScreen
 import com.example.store.model.Products
 import com.example.store.ui.theme.StoreTheme
@@ -24,12 +27,15 @@ class DetailActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             StoreTheme {
+                val scaffoldState = rememberScaffoldState()
+                val navHostController = rememberNavController()
+                val scope = rememberCoroutineScope()
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MainDetailScreen(data = data)
+                    MainDetailScreen(data = data, navHostController = navHostController, scope = scope, scaffoldState = scaffoldState)
                 }
             }
         }

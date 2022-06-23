@@ -20,21 +20,29 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.store.model.Products
+import com.example.store.navigation.NavigationScreens
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
-fun MainDetailScreen(modifier:Modifier= Modifier,data:Products){
+fun MainDetailScreen(modifier:Modifier= Modifier,data:Products,navHostController: NavHostController, scope: CoroutineScope,scaffoldState: ScaffoldState){
     Scaffold(
+        scaffoldState = scaffoldState,
+        floatingActionButton = {
+                             FloatingButton(navHostController = navHostController, scope =scope )
+        },
         content = {
-            DetailContent(data=data)
+            DetailContent(data=data, navHostController = navHostController, scope = scope)
         }
     )
 
 }
 
 @Composable
-fun DetailContent(modifier:Modifier=Modifier,data:Products) {
+fun DetailContent(modifier:Modifier=Modifier, data:Products, navHostController: NavHostController, scope: CoroutineScope) {
     Column(
         modifier
             .fillMaxSize()
@@ -57,8 +65,15 @@ fun DetailContent(modifier:Modifier=Modifier,data:Products) {
             style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Black))
 
 
-Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.End){
-    OutlinedButton(onClick = { /*TODO*/ }) {
+Row(modifier.fillMaxWidth(),verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.End,){
+    OutlinedButton(onClick = { scope.launch{
+        navHostController.navigate(NavigationScreens.Cart.route){
+            popUpTo(NavigationScreens.Cart.route){
+                inclusive = true
+            }
+
+        }
+    } }) {
         Icon(Icons.Default.ShoppingCart,contentDescription = null)
 
     }

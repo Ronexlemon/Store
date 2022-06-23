@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.store.model.Cart
 import com.example.store.model.Products
 
 import com.example.store.storerepository.StoreRepository
@@ -23,7 +24,12 @@ class StoreViewModel
     val _state = MutableStateFlow(emptyList<Products>())
     val state:StateFlow<List<Products>>
     get() = _state
+    //get a list of the cart
+    val _cart = MutableStateFlow(emptyList<Cart>())
+    val cart :StateFlow<List<Cart>>
+    get() =  _cart
     var progress by  mutableStateOf(false)
+ var id by mutableStateOf(1)
 
 
 
@@ -39,6 +45,15 @@ class StoreViewModel
 
 
     }
+    //get product cart
+    public  fun getAllProduct(){
+        viewModelScope.launch {
+           val cartItem = repo.getAllCart(id)
+            _cart.value = cartItem.body()!!
+        }
+    }
+
+    //get products category
 
     public fun getWomenResponse() {
 
