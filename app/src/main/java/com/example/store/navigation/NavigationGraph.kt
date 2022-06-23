@@ -8,7 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.store.Screen.MainCartScreen
+
 import com.example.store.Screen.MainScreen
 import com.example.store.model.Products
 import com.example.store.storviemodel.StoreViewModel
@@ -27,12 +27,9 @@ fun NavigationGraph(navHostController: NavHostController,viewModel: StoreViewMod
            MainScreen(viemodel =viewModel , scaffoldState =scaffoldState , onItemclick =onItemclick,scope=scope , navHostController = navHostController)
         }
         composable(NavigationScreens.Cart.route){
-            MainCartScreen(scafoldstate = scaffoldState, viewModel = viewModel)
+           //todo
         }
     }
 }
 
-@Composable
-fun CartScreen(scaffoldState: ScaffoldState,viewModel: StoreViewModel) {
-    MainCartScreen(scafoldstate =scaffoldState, viewModel =viewModel )
-}
+
