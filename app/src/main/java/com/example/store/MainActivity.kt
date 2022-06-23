@@ -14,15 +14,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Observer
+import androidx.navigation.compose.rememberNavController
 import com.example.store.Screen.AutoScrollingList
 
 import com.example.store.Screen.MainScreen
 import com.example.store.model.Products
 import com.example.store.model.autoScrollingList
+import com.example.store.navigation.NavigationGraph
 import com.example.store.storviemodel.StoreViewModel
 import com.example.store.ui.theme.StoreTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,15 +45,19 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     val scaffoldState = rememberScaffoldState()
+                    val navHostController = rememberNavController()
+                    val scope = rememberCoroutineScope()
                     val context = LocalContext.current
 //
 //                    val list: List<Products> by viewModel.response.observeAsState(emptyList<Products>())
                     //Greeting("Android")
+NavigationGraph(navHostController =navHostController , viewModel =viewModel , scaffoldState =scaffoldState,scope=scope , onItemclick ={
+    startActivity(DetailActivity.newIntent(this,it))
+} )
 
-
-                    MainScreen(scaffoldState =scaffoldState, viemodel = viewModel ){
-                        startActivity(DetailActivity.newIntent(this,it))
-                    }
+//                    MainScreen(scaffoldState =scaffoldState, viemodel = viewModel ){
+//                        startActivity(DetailActivity.newIntent(this,it))
+//                    }
                 }
             }
         }

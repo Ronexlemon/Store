@@ -25,20 +25,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.store.Greeting
 import com.example.store.R
 import com.example.store.model.Products
 import com.example.store.model.autoScrollingList
+import com.example.store.navigation.NavigationScreens
 import com.example.store.storviemodel.StoreViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun MainScreen(modifier:Modifier= Modifier,viemodel: StoreViewModel,scaffoldState: ScaffoldState,onItemclick:(Products)->Unit){
+fun MainScreen(modifier:Modifier= Modifier,viemodel: StoreViewModel,scaffoldState: ScaffoldState,navHostController: NavHostController,scope: CoroutineScope,onItemclick:(Products)->Unit){
     Scaffold(
         scaffoldState = scaffoldState
+    , floatingActionButton = {
+        FloatingButton(navHostController = navHostController, scope = scope)
+        }
     ) {
 
         AllProductScreen(viemodel = viemodel, onItemclick = onItemclick)
@@ -47,6 +53,16 @@ fun MainScreen(modifier:Modifier= Modifier,viemodel: StoreViewModel,scaffoldStat
 
 
 }
+
+@Composable
+fun FloatingButton(modifier:Modifier=Modifier,navHostController: NavHostController,scope: CoroutineScope) {
+    FloatingActionButton(onClick = { scope.launch{
+        navHostController.navigate(NavigationScreens.Cart.route)
+    } }) {
+
+    }
+}
+
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -207,7 +223,10 @@ LandingPageCard()
 }
 @Composable
 fun LandingPageCard(modifier:Modifier= Modifier){
-    Column(modifier.fillMaxWidth().height(250.dp)){
+    Column(
+        modifier
+            .fillMaxWidth()
+            .height(250.dp)){
         SearchBar()
        AutoScrollingList(list = autoScrollingList )
 //        Card(
