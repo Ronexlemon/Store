@@ -1,5 +1,6 @@
 package com.example.store.storviemodel
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -50,6 +51,7 @@ class StoreViewModel
                 val women = repo.getAllWomens()
                 _state.value = women.body()!!
                progress=true
+                Log.i("tag","women")
 
         }
 

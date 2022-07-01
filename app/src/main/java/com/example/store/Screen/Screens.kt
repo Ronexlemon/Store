@@ -1,9 +1,12 @@
 package com.example.store.Screen
 
 import android.annotation.SuppressLint
+import android.view.MotionEvent
 import android.view.RoundedCorner
 import android.widget.ProgressBar
 import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.CircleShape
@@ -14,10 +17,12 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -30,7 +35,9 @@ import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.store.Greeting
 import com.example.store.R
+import com.example.store.appconstants.AppConstants.colorbackground
 import com.example.store.appconstants.AppConstants.colors
+import com.example.store.appconstants.AppConstants.colorsScrool
 import com.example.store.model.Products
 import com.example.store.model.autoScrollingList
 import com.example.store.navigation.NavigationScreens
@@ -63,7 +70,7 @@ fun AllProductScreen(modifier:Modifier = Modifier,viemodel: StoreViewModel,onIte
     val category by viemodel.state.collectAsState()
     val scope = rememberCoroutineScope()
 
-    Column(modifier.fillMaxSize().background(brush= Brush.horizontalGradient(colors=colors))){
+    Column(modifier.fillMaxSize().background(brush= Brush.horizontalGradient(colors=colorbackground))){
         Landingpage(viemodel = viemodel)
 
 //        LazyColumn{
@@ -110,6 +117,7 @@ fun ProductsItem(modifier:Modifier=Modifier,data:Products,onItemclick:(Products)
         Column(
             modifier
                 .fillMaxSize()
+                .background(brush = Brush.verticalGradient(colors = colors))
                 .clickable { onItemclick(data) }, verticalArrangement = Arrangement.SpaceEvenly) {
             Image(painter = rememberAsyncImagePainter(data.image), contentDescription =null,
                 modifier
@@ -125,10 +133,14 @@ fun ProductsItem(modifier:Modifier=Modifier,data:Products,onItemclick:(Products)
 
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Landingpage(modifier:Modifier = Modifier,viemodel: StoreViewModel){
     var name by remember{ mutableStateOf(false)}
+
+
     val category by viemodel.state.collectAsState()
+
     Column {
 
 
@@ -150,7 +162,8 @@ LandingPageCard()
                 }
             }
             item {
-                OutlinedButton(onClick = { viemodel.getJeweryResponse() }, shape = RoundedCornerShape(15.dp),modifier= Modifier
+                OutlinedButton(onClick = { viemodel.getJeweryResponse() },
+                    shape = RoundedCornerShape(15.dp),modifier= Modifier
                     .size(height = 60.dp, width = 125.dp)
                     .padding(8.dp)){
                     Text(
@@ -165,9 +178,10 @@ LandingPageCard()
                 }
             }
             item {
-                OutlinedButton(onClick = { viemodel.getElectronicResponse() }, shape = RoundedCornerShape(15.dp),modifier= Modifier
+                OutlinedButton( onClick = { viemodel.getElectronicResponse() }, shape = RoundedCornerShape(15.dp),modifier= Modifier
                     .size(height = 60.dp, width = 150.dp)
-                    .padding(8.dp)) {
+                    .padding(8.dp)
+                   ) {
                     Text(
                         text = "Electronic",
                         style = TextStyle(
@@ -218,19 +232,10 @@ fun LandingPageCard(modifier:Modifier= Modifier){
     Column(
         modifier
             .fillMaxWidth()
+            .padding(top=25.dp)
             .height(250.dp)){
-        SearchBar()
+
        AutoScrollingList(list = autoScrollingList )
-//        Card(
-//            modifier
-//                .fillMaxWidth()
-//                .height(200.dp)
-//                .padding(16.dp)){
-//            Box(modifier.fillMaxSize()){
-////                Image(modifier=Modifier.fillMaxSize(), contentScale = ContentScale.Crop,painter = painterResource(id = R.drawable.ic_launcher_background), contentDescription =null )
-//               // AutoScrollingList(list =list )
-//            }
-//        }
     }
 
 

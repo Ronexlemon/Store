@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.store.appconstants.AppConstants.colors
+import com.example.store.appconstants.AppConstants.colorsScrool
 import com.example.store.model.Products
 import com.example.store.navigation.NavigationScreens
 import kotlinx.coroutines.CoroutineScope
@@ -52,10 +53,12 @@ fun DetailContent(modifier:Modifier=Modifier, data:Products,navHostController: N
             modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
+                .background(brush= Brush.verticalGradient(colors= colorsScrool))
                 .shadow(elevation = 10.dp, shape = RectangleShape),shape= RoundedCornerShape(20.dp)){
             Image(modifier= Modifier
                 .height(300.dp)
-                .fillMaxWidth(),painter = rememberAsyncImagePainter(model = data.image), contentDescription =null )
+                .fillMaxWidth()
+                .background(color=Color.White),painter = rememberAsyncImagePainter(model = data.image), contentDescription =null )
 
         }
 

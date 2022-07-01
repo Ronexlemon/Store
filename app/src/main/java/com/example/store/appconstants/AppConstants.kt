@@ -13,8 +13,25 @@ object AppConstants {
     const val EndPointWomenCloths="/products/category/women's clothing"
     //const val EndPointcart = "/carts"
     val  colors = listOf(
-        Color(0xFFFFC107),
-        Color(0xFFFF9800),
-        Color(0xFFFF5722)
+
+        Color(0xFFDBB3B1),
+        Color(0xFFC89FA3),
+        Color(0xFFA67F8E),
+        Color(0xFF6C534E),
+        Color(0xFF2C1A1D),
+
+
+
+    )
+    val checkoutcolor =  Color(0xFFDBB3B1)
+    val  colorsScrool = listOf(
+        Color(0xFFEEEAFE),
+        Color(0xFFAB89FF),
+        Color(0xFF1C98B4)
+    )
+     val  colorbackground=  listOf(
+        Color(0xFFA67F8E),
+         Color(0xFFA67F8E)
+
     )
 }

@@ -20,13 +20,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.store.appconstants.AppConstants.checkoutcolor
 import com.example.store.appconstants.AppConstants.colors
 
 @Composable
 fun CheckOutScreen(price:String?=null){
     Column(modifier= Modifier
         .fillMaxSize()
-        .background(color = Color.Blue)){
+        .background(color =Color.White )){
         //Text(text="${title}")
 
         Spacer(modifier= Modifier

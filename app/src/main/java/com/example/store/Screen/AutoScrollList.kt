@@ -3,6 +3,7 @@ package com.example.store.Screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.MutatePriority
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
@@ -14,12 +15,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.store.appconstants.AppConstants.colors
+import com.example.store.appconstants.AppConstants.colorsScrool
 import com.example.store.model.AutoScrollingModel
 
 import kotlinx.coroutines.delay
@@ -76,11 +80,13 @@ fun AutoScrollingName(
     Card(
         modifier = Modifier
             .size(160.dp)
+
             .aspectRatio(1f),
         elevation = 0.dp
     ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize()
+                .background(brush = Brush.horizontalGradient(colors = colorsScrool)),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
